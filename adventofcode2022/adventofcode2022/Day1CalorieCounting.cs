@@ -17,7 +17,7 @@
                 sums.Add(sum);
             }
             sums.Sort();
-            Console.WriteLine($"The elf with the biggest muscles is carrying: {sums[^1]} calories. Such wonder!");
+            Console.WriteLine($"Day 1 Result - The elf with the biggest muscles is carrying: {sums[^1]} calories. Such wonder!");
         }
     }
 }

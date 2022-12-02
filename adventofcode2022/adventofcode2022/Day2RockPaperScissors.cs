@@ -27,11 +27,10 @@
         public void OnProcessData(string result) {
             var strategyGuide = result.Split(new [] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
             int sum = 0;
-            Console.WriteLine(strategyGuide.Length);
             for(int i = 0; i < strategyGuide.Length; i++) {
                 sum += rules[strategyGuide[i]] + rules[strategyGuide[i][2].ToString()] ;
             }
-            Console.WriteLine($"Total score is {sum}");
+            Console.WriteLine($"Day 2 Result - Total score is {sum}");
         }
     }
 }
