@@ -25,11 +25,8 @@
             AdventOfCode.GetInputData(OnProcessData, url);
         }
         public void OnProcessData(string result) {
-            var strategyGuide = result.Split(new [] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
-            int sum = 0;
-            for(int i = 0; i < strategyGuide.Length; i++) {
-                sum += rules[strategyGuide[i]] + rules[strategyGuide[i][2].ToString()] ;
-            }
+            string[] strategyGuide = result.Split(new [] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
+            int sum = strategyGuide.Sum(t => rules[t] + rules[t[2].ToString()]);
             Console.WriteLine($"Day 2 Result - Total score is {sum}");
         }
     }
