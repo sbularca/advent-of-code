@@ -1,6 +1,5 @@
 ﻿namespace AdventOfCode2022 {
     public static class AdventOfCode {
-
         public static async Task Main(String[] args) {
             List<IAdventOfCode> instances = new();
             List<Task> tasks = new ();
@@ -15,6 +14,7 @@
             }
             await Task.WhenAll(tasks);
 
+            //print results
             for(int i = 0; i < instances.Count; i++) {
                 instances[i].PrintResults();
             }
