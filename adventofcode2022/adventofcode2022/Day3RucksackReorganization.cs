@@ -2,6 +2,7 @@
     public class Day3RucksackReorganization : IAdventOfCode {
         public string Url => "https://sebastianbularca.com/temp/data/day3Input.txt";
         public DateTime Now { get; private set; }
+        public List<int> Results { get; } = new();
         public void OnProcessData(string result) {
             Now = DateTime.Now;
             //part 1
@@ -14,7 +15,7 @@
                 char commonElem = comp1.Intersect(comp2).ElementAt(0);
                 sum += GetAsciiPriority(commonElem);
             }
-            Console.WriteLine($"Day 3, Part 1 Result - Total priority is {sum}");
+            Results.Add(sum);
 
             //part2
             List<string> packsOfThree = new ();
@@ -31,10 +32,16 @@
                 sum += prio;
                 packsOfThree.Clear();
             }
+            Results.Add(sum);
 
-            Console.WriteLine($"$Day 3, Part 2 Result - Total priority is {sum}");
+            Console.WriteLine($"Day 3 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
+        }
 
-            Console.WriteLine($"Method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
+        public void PrintResults() {
+            Console.WriteLine($" \nShowing Day 3 results");
+            for(int i = 0; i < Results.Count; i++) {
+                Console.WriteLine($"Day 3 Part {i+1} Result - Total priority is {Results[i]}");
+            }
         }
 
         private static int GetAsciiPriority(char commonElem) {

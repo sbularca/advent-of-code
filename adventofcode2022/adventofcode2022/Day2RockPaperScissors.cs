@@ -2,6 +2,7 @@
     public class Day2RockPaperScissors : IAdventOfCode {
         public string Url => "https://sebastianbularca.com/temp/data/day2Input.txt";
         public DateTime Now { get; private set; }
+        public List<int> Results { get; } = new();
 
         private readonly Dictionary<string, int> standardRules = new (){
             {"A X", 3},
@@ -28,7 +29,7 @@
 
             // part 1
             int sum = strategyGuide.Sum(t => standardRules[t] + standardRules[t[2].ToString()]);
-            Console.WriteLine($"Day 2 Part 1 Result - Total score is {sum}");
+            Results.Add(sum);
 
             //part 2
             sum = 0;
@@ -58,8 +59,15 @@
                         break;
                 }
             }
-            Console.WriteLine($"Day 2 Part 2 Result - Total score is {sum}");
-            Console.WriteLine($"Method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
+            Results.Add(sum);
+            Console.WriteLine($"Day 2 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
+        }
+
+        public void PrintResults() {
+            Console.WriteLine($" \nShowing Day 3 results");
+            for(int i = 0; i < Results.Count; i++) {
+                Console.WriteLine($"Day 2 Part {i+1} Result - Total score is {Results[i]}");
+            }
         }
     }
 }

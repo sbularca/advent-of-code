@@ -2,26 +2,35 @@
     public static class AdventOfCode {
 
         public static async Task Main(String[] args) {
-            Console.WriteLine("Executing Day 1");
-            Day1CalorieCounting day1 = new ();
-            await GetInputData(day1.OnProcessData, day1.Url);
+            List<IAdventOfCode> instances = new();
+            List<Task> tasks = new ();
 
-            Console.WriteLine("Executing Day 2");
-            Day2RockPaperScissors day2 = new ();
-            await GetInputData(day2.OnProcessData, day2.Url);
+            // Find automatically all interface implementations
+            FindAllIAdvents(instances);
 
-            Console.WriteLine("Executing Day 3");
-            Day3RucksackReorganization day3 = new ();
-            await GetInputData(day3.OnProcessData, day3.Url);
+            // Execute tasks in parallel
+            for(int i = 0; i < instances.Count; i++) {
+                IAdventOfCode aocInstance = instances[i];
+                tasks.Add(GetInputDataFromUrlAsync(aocInstance.OnProcessData, aocInstance.Url));
+            }
+            await Task.WhenAll(tasks);
 
+            for(int i = 0; i < instances.Count; i++) {
+                instances[i].PrintResults();
+            }
         }
 
-        private static async Task GetInputData(Action<string> callback, string url) {
-            Task task = Task.Run(async () => await GetInputDataFromUrlAsync(url, callback));
-            await task;
+        private static void FindAllIAdvents(List<IAdventOfCode> instances) {
+            IEnumerable<Type> adventsOfCode = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(x => x.GetTypes())
+                .Where(t => t.GetInterfaces().Contains(typeof(IAdventOfCode)));
+            foreach (Type type in adventsOfCode) {
+                IAdventOfCode aoc = (IAdventOfCode)Activator.CreateInstance(type)!;
+                instances.Add(aoc);
+            }
         }
 
-        private static async Task GetInputDataFromUrlAsync(string url, Action<string> callback) {
+        private static async Task GetInputDataFromUrlAsync(Action<string> callback, string url) {
             HttpClient client = new ();
             try {
                 string file = await client.GetStringAsync(url);
