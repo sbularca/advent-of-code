@@ -1,27 +1,24 @@
 ﻿namespace AdventOfCode2022 {
-    public interface IAdventOfCode {
-        void Start();
-        void OnProcessData(string result);
-    }
-
     public static class AdventOfCode {
 
-        public static void Main(String[] args) {
+        public static async Task Main(String[] args) {
             Console.WriteLine("Executing Day 1");
             Day1CalorieCounting day1 = new ();
-            day1.Start();
+            await GetInputData(day1.OnProcessData, day1.Url);
 
             Console.WriteLine("Executing Day 2");
             Day2RockPaperScissors day2 = new ();
-            day2.Start();
+            await GetInputData(day2.OnProcessData, day2.Url);
+
+            Console.WriteLine("Executing Day 3");
+            Day3RucksackReorganization day3 = new ();
+            await GetInputData(day3.OnProcessData, day3.Url);
 
         }
 
-        public static void GetInputData(Action<string> callback, string url) {
+        private static async Task GetInputData(Action<string> callback, string url) {
             Task task = Task.Run(async () => await GetInputDataFromUrlAsync(url, callback));
-            while(!task.IsCompleted) {
-                Task.Yield();
-            }
+            await task;
         }
 
         private static async Task GetInputDataFromUrlAsync(string url, Action<string> callback) {
