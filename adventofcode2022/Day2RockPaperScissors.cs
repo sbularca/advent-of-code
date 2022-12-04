@@ -64,7 +64,7 @@
         }
 
         public void PrintResults() {
-            Console.WriteLine($" \nShowing Day 3 results");
+            Console.WriteLine($" \nShowing Day 2 results");
             for(int i = 0; i < Results.Count; i++) {
                 Console.WriteLine($"Day 2 Part {i+1} Result - Total score is {Results[i]}");
             }
