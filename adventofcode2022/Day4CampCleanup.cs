@@ -2,7 +2,7 @@
     public class Day4CampCleanup : IAdventOfCode {
         public string Url => "https://sebastianbularca.com/temp/data/day4Input.txt";
         public DateTime Now { get; private set; }
-        public List<int> Results { get; } = new();
+        public List<string> Results { get; } = new();
 
         public void OnProcessData(string result) {
             Now = DateTime.Now;
@@ -40,8 +40,8 @@
                 }
                 sum2++;
             }
-            Results.Add(sum1);
-            Results.Add(sum2);
+            Results.Add(sum1.ToString());
+            Results.Add(sum2.ToString());
             Console.WriteLine($"Day 4 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
         }
 

@@ -2,7 +2,7 @@
     public class Day2RockPaperScissors : IAdventOfCode {
         public string Url => "https://sebastianbularca.com/temp/data/day2Input.txt";
         public DateTime Now { get; private set; }
-        public List<int> Results { get; } = new();
+        public List<string> Results { get; } = new();
 
         private readonly Dictionary<string, int> standardRules = new (){
             {"A X", 3},
@@ -29,7 +29,7 @@
 
             // part 1
             int sum = strategyGuide.Sum(t => standardRules[t] + standardRules[t[2].ToString()]);
-            Results.Add(sum);
+            Results.Add(sum.ToString());
 
             //part 2
             sum = 0;
@@ -59,7 +59,7 @@
                         break;
                 }
             }
-            Results.Add(sum);
+            Results.Add(sum.ToString());
             Console.WriteLine($"Day 2 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
         }
 

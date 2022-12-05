@@ -2,7 +2,7 @@
     public class Day3RucksackReorganization : IAdventOfCode {
         public string Url => "https://sebastianbularca.com/temp/data/day3Input.txt";
         public DateTime Now { get; private set; }
-        public List<int> Results { get; } = new();
+        public List<string> Results { get; } = new();
         public void OnProcessData(string result) {
             Now = DateTime.Now;
             //part 1
@@ -15,7 +15,7 @@
                 char commonElem = comp1.Intersect(comp2).ElementAt(0);
                 sum += GetAsciiPriority(commonElem);
             }
-            Results.Add(sum);
+            Results.Add(sum.ToString());
 
             //part2
             List<string> packsOfThree = new ();
@@ -32,7 +32,7 @@
                 sum += prio;
                 packsOfThree.Clear();
             }
-            Results.Add(sum);
+            Results.Add(sum.ToString());
 
             Console.WriteLine($"Day 3 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
         }

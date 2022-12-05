@@ -2,7 +2,7 @@
     public class Day1CalorieCounting : IAdventOfCode {
         public string Url => "https://sebastianbularca.com/temp/data/day1Input.txt";
         public DateTime Now { get; private set; }
-        public List<int> Results { get; } = new();
+        public List<string> Results { get; } = new();
         public void OnProcessData(string result) {
             Now = DateTime.Now;
             string[] elvesBackpacks = result.Split(new [] {"\n\n"}, StringSplitOptions.None);
@@ -16,12 +16,12 @@
                 output = (sum > output) ? sum : output;
                 allCalories.Add(sum);
             }
-            Results.Add(output);
+            Results.Add(output.ToString());
 
             //part 2
             allCalories.Sort();
             output = allCalories[^1] + allCalories[^2] + allCalories[^3];
-            Results.Add(output);
+            Results.Add(output.ToString());
             Console.WriteLine($"Day 1 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
         }
         public void PrintResults() {
