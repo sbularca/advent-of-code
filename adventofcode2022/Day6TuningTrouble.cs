@@ -18,7 +18,7 @@
 
         private void GetMarker(string dataStream, int messageLength) {
             for (int i = 0; i < dataStream.Length; i++) {
-                if (i > dataStream.Length - 5) {
+                if (i > dataStream.Length - 1 - messageLength) {
                     break;
                 }
 
@@ -29,7 +29,7 @@
                     a++;
                 }
 
-                if (tempString.Select(a => a).Distinct().Count() == tempString.Length) {
+                if (tempString.Select(c => c).Distinct().Count() == tempString.Length) {
                     Results.Add((i + messageLength).ToString());
                     break;
                 }
