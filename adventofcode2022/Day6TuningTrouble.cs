@@ -1,6 +1,5 @@
 ﻿namespace AdventOfCode2022 {
     public class Day6TuningTrouble : IAdventOfCode {
-        private bool duplicate;
         public string Url => "https://sebastianbularca.com/temp/data/day6Input.txt";
         public DateTime Now { get; private set; }
         public List<string> Results { get; } = new();
@@ -12,8 +11,8 @@
             var message2Length = 14;
             GetMarker(dataStream, message1Length);
             GetMarker(dataStream, message2Length);
-            
-            Console.WriteLine($"Day 2 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
+
+            Console.WriteLine($"Day 6 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
         }
 
         private void GetMarker(string dataStream, int messageLength) {
