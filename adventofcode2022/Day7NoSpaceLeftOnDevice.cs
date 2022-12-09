@@ -53,8 +53,7 @@ namespace AdventOfCode2022 {
 
                 if(data[0] == "dir") {
                     var newFolderTree = new FolderTree {
-                        name = data[1],
-                        depth = depth
+                        name = data[1]
                     };
                     folderTree.Add(newFolderTree);
                     //Console.WriteLine($"Added folder {data[1]}");
