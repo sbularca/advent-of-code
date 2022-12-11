@@ -34,8 +34,8 @@ namespace AdventOfCode2022 {
         public void OnProcessData(string result) {
             Now = DateTime.Now;
 
-            //string[] lines = result.Split(new [] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
-            string[] lines = testLines;
+            string[] lines = result.Split(new [] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
+            //string[] lines = testLines;
             (int x, int y) startingPos = (0, 0);
             grid = GenerateStartingGrid(lines, out startingPos);
             ((int l, int r) horiz, (int u, int d) vert) direction = ((-1, 1), (-1, 1));
@@ -49,44 +49,36 @@ namespace AdventOfCode2022 {
                         for(int j = rope.H.y; j <= endPos; j++) {
                             rope.H = (rope.H.x, j);
                             if(!headRecordedPos.Contains(rope.H)) {
-                                Console.WriteLine($"{rope.H.x}, {rope.H.y}");
                                 headRecordedPos.Add(rope.H);
                             }
                         }
-                        rope.H = (rope.H.x, endPos);
                         break;
                     case "L":
                         endPos = rope.H.y - kvDirSetList[i].value;
-                        for(int j = rope.H.y; j <= endPos; j++) {
+                        for(int j = rope.H.y; j >= endPos; j--) {
                             rope.H = (rope.H.x, j);
                             if(!headRecordedPos.Contains(rope.H)) {
-                                Console.WriteLine($"{rope.H.x}, {rope.H.y}");
                                 headRecordedPos.Add(rope.H);
                             }
                         }
-                        rope.H = (rope.H.x, endPos);
                         break;
                     case "U":
                         endPos = rope.H.x - kvDirSetList[i].value;
-                        for(int j = rope.H.x; j <= endPos; j++) {
+                        for(int j = rope.H.x; j >= endPos; j--) {
                             rope.H = (j, rope.H.y);
                             if(!headRecordedPos.Contains(rope.H)) {
-                                Console.WriteLine($"{rope.H.x}, {rope.H.y}");
                                 headRecordedPos.Add(rope.H);
                             }
                         }
-                        rope.H = (endPos, rope.H.y);
                         break;
                     case "D":
                         endPos = rope.H.x + kvDirSetList[i].value;
                         for(int j = rope.H.x; j <= endPos; j++) {
                             rope.H = (j, rope.H.y);
                             if(!headRecordedPos.Contains(rope.H)) {
-                                Console.WriteLine($"{rope.H.x}, {rope.H.y}");
                                 headRecordedPos.Add(rope.H);
                             }
                         }
-                        rope.H = (endPos, rope.H.y);
                         break;
                 }
             }
@@ -131,7 +123,7 @@ namespace AdventOfCode2022 {
                             firstHoriz = true;
                         }
                         line1 += value;
-                        Console.WriteLine($"R {Math.Abs(line1)}");
+                        //Console.WriteLine($"R {Math.Abs(line1)}");
                         break;
                     case 'L':
                         if(!firstHoriz) {
@@ -139,7 +131,7 @@ namespace AdventOfCode2022 {
                             firstHoriz = true;
                         }
                         line1 -= value;
-                        Console.WriteLine($"L {Math.Abs(line1)}");
+                        //Console.WriteLine($"L {Math.Abs(line1)}");
                         break;
                     case 'D':
                         if(!firstVert) {
@@ -147,7 +139,7 @@ namespace AdventOfCode2022 {
                             firstVert = true;
                         }
                         column -= value;
-                        Console.WriteLine($"D {Math.Abs(column)}");
+                        //Console.WriteLine($"D {Math.Abs(column)}");
                         break;
                     case 'U':
                         if(!firstVert) {
@@ -155,21 +147,24 @@ namespace AdventOfCode2022 {
                             firstVert = true;
                         }
                         column += value;
-                        Console.WriteLine($"U {Math.Abs(column)}");
+                        //Console.WriteLine($"U {Math.Abs(column)}");
                         break;
                 }
-                if(line1 < 0) {
+
+                if (line1 <= 0) {
                     horiz = (horiz < line1) ? horiz : line1;
                 }
-                if(column > 0) {
+
+                if(column >= 0) {
                     vert = (vert > column) ? vert : column;
                 }
 
-                width = (Math.Abs(line1) > width) ? Math.Abs(line1) : width;
-                height = (Math.Abs(column) > height) ? Math.Abs(column) : height;
+                width = 250; //(Math.Abs(line1) > width) ? Math.Abs(line1) : width;
+                height = 250; //(Math.Abs(column) > height) ? Math.Abs(column) : height;
             }
+
             startPosition.col = Math.Abs(horiz);
-            startPosition.line = Math.Abs(vert) - 1 ;
+            startPosition.line = Math.Abs(vert);
 
             Console.WriteLine($"The grid size is {height} x {width}. Coords are {startPosition.line}, {startPosition.col}");
 
@@ -180,7 +175,7 @@ namespace AdventOfCode2022 {
                     result[i, j] = ".";
                     line += result[i, j];
                 }
-                Console.WriteLine(line);
+                //Console.WriteLine(line);
             }
             return result;
         }
