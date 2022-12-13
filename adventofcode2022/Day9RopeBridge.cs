@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
-using System.Runtime.InteropServices;
-using System.Runtime.Intrinsics.X86;
+﻿
+using System.Diagnostics;
+using System.Numerics;
 
 namespace AdventOfCode2022 {
     public class Day9RopeBridge : IAdventOfCode {
@@ -30,104 +30,133 @@ namespace AdventOfCode2022 {
             "U 20"
         };
 
+
         public void OnProcessData(string result) {
             Now = DateTime.Now;
 
             //string[] lines = result.Split(new [] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
-            string[] lines = testLines1;
-            //string[] lines = testLines2;
-            List<(int x, int y)> tailPos = new ();
-            ((int x, int y) H, (int x, int y)T) pos = ((0, 0), (0, 0));
+            //string[] lines = testLines1;
+            string[] lines = testLines2;
+            List<Vector2> tailPos = new ();
+            Vector2 prevHead = Vector2.Zero;
+            int lenght = 10;
+            List<Vector2> rope = new List<Vector2>(lenght);
+            for(int i = 0; i < lenght; i++) {
+                rope.Add(Vector2.Zero);
+            }
+
             for (int i = 0; i < lines.Length; i++) {
                 var data = lines[i].Split(' ');
                 var dir = data[0];
-                var dist = int.Parse(data[1]);
-                var ropeSize = 10;
-                Console.WriteLine($"Step - {dir} {dist}");
-                double currentMagnitude = 0;
-                switch (dir) {
-                    case "R":
-                        dist =  pos.H.y + dist;
-                        while ( pos.H.y < dist) {
-                            pos.H.y++;
-                            currentMagnitude = Math.Abs(Math.Sqrt(Math.Pow((pos.H.x - pos.T.x), 2) + Math.Pow((pos.H.y - pos.T.y), 2)));
-                            if(currentMagnitude > 1.42f) {
-                                pos.T.y++;
-                                if(pos.H.x - pos.T.x > 0) {
-                                    pos.T.x++;
-                                }
-                                else if(pos.H.x - pos.T.x < 0){
-                                    pos.T.x--;
-                                }
-                                if(!tailPos.Contains((pos.T.x, pos.T.y))) {
-                                    tailPos.Add((pos.T.x, pos.T.y));
-                                }
+                Vector2 direction = dir switch {
+                    "R" => new Vector2(0, 1),
+                    "L" => new Vector2(0, -1),
+                    "U" => new Vector2(-1, 0),
+                    "D" => new Vector2(1,0),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                Console.WriteLine($"Going {dir} {data[1]}");
+                for(int j = 0; j < rope.Count - 1; j++) {
+                    Vector2 dist = rope[j] + direction * float.Parse(data[1]);
+                    while(rope[j] != dist) {
+                        prevHead = rope[j];
+                        rope[j] += direction;
+                        if(Vector2.Distance(rope[j], rope[j+1]) > Vector2.Distance(Vector2.One, Vector2.Zero)) {
+                            rope[j+1] += (prevHead - rope[j+1]);
+                            if(j+1 == rope.Count -1 && !tailPos.Contains(rope[j+1])) {
+                                tailPos.Add(rope[j+1]);
                             }
-                            Console.WriteLine($"H - {pos.H.x}, {pos.H.y}; T - {pos.T.x}, {pos.T.y}");
                         }
-                        break;
-                    case "L":
-                        dist =  pos.H.y - dist;
-                        while ( pos.H.y > dist) {
-                            pos.H.y--;
-                            currentMagnitude = Math.Abs(Math.Sqrt(Math.Pow((pos.H.x - pos.T.x), 2) + Math.Pow((pos.H.y - pos.T.y), 2)));
-                            if(currentMagnitude > 1.42f) {
-                                pos.T.y--;
-                                if(pos.H.x - pos.T.x > 0) {
-                                    pos.T.x++;
-                                }
-                                else if(pos.H.x - pos.T.x < 0){
-                                    pos.T.x--;
-                                }
-                                if(!tailPos.Contains((pos.T.x, pos.T.y))) {
-                                    tailPos.Add((pos.T.x, pos.T.y));
-                                }
-                            }
-                            Console.WriteLine($"H - {pos.H.x}, {pos.H.y}; T - {pos.T.x}, {pos.T.y}");
-                        }
-
-                        break;
-                    case "D":
-                        dist =  pos.H.x + dist;
-                        while ( pos.H.x < dist) {
-                            pos.H.x++;
-                            currentMagnitude = Math.Abs(Math.Sqrt(Math.Pow((pos.H.x - pos.T.x), 2) + Math.Pow((pos.H.y - pos.T.y), 2)));
-                            if(currentMagnitude > 1.42f) {
-                                pos.T.x++;
-                                if(pos.H.y - pos.T.y > 0) {
-                                    pos.T.y++;
-                                }
-                                else if(pos.H.y - pos.T.y < 0){
-                                    pos.T.y--;
-                                }
-                                if(!tailPos.Contains((pos.T.x, pos.T.y))) {
-                                    tailPos.Add((pos.T.x, pos.T.y));
-                                }
-                            }
-                            Console.WriteLine($"H - {pos.H.x}, {pos.H.y}; T - {pos.T.x}, {pos.T.y}");
-                        }
-                        break;
-                    case "U":
-                        dist =  pos.H.x - dist;
-                        while ( pos.H.x > dist) {
-                            pos.H.x--;
-                            currentMagnitude = Math.Abs(Math.Sqrt(Math.Pow((pos.H.x - pos.T.x), 2) + Math.Pow((pos.H.y - pos.T.y), 2)));
-                            if(currentMagnitude > 1.42f) {
-                                pos.T.x--;
-                                if(pos.H.y - pos.T.y > 0) {
-                                    pos.T.y++;
-                                }
-                                else if(pos.H.y - pos.T.y < 0){
-                                    pos.T.y--;
-                                }
-                                if(!tailPos.Contains((pos.T.x, pos.T.y))) {
-                                    tailPos.Add((pos.T.x, pos.T.y));
-                                }
-                            }
-                            Console.WriteLine($"H - {pos.H.x}, {pos.H.y}; T - {pos.T.x}, {pos.T.y}");
-                        }
-                        break;
+                        Console.WriteLine($"x = {rope[j].X}, y = {rope[j].Y}");
+                        Console.WriteLine($"x = {rope[j+1].X}, y = {rope[j+1].Y}\n");
+                    }
                 }
+
+                //Console.WriteLine($"Step - {dir} {dist}");
+            //
+            //     double currentMagnitude = 0;
+            //     switch (dir) {
+            //         case "R":
+            //             dist =  head.Y + dist;
+            //             while ( head.Y < dist) {
+            //                 head.Y++;
+            //                 currentMagnitude = Math.mag Math.Abs(Math.Sqrt(Math.Pow((head.X - tail.X), 2) + Math.Pow((head.Y - tail.Y), 2)));
+            //                 if(currentMagnitude > 1.42f) {
+            //                     tail.Y++;
+            //                     if(head.X - tail.X > 0) {
+            //                         tail.X++;
+            //                     }
+            //                     else if(head.X - tail.X < 0){
+            //                         tail.X--;
+            //                     }
+            //                     if(!tailPos.Contains(new (tail.X, tail.Y))) {
+            //                         tailPos.Add(new(tail.X, tail.Y));
+            //                     }
+            //                 }
+            //                 Console.WriteLine($"H - {head.X}, {head.Y}; T - {tail.X}, {tail.Y}");
+            //             }
+            //             break;
+            //         case "L":
+            //             dist =  head.Y - dist;
+            //             while ( head.Y > dist) {
+            //                 head.Y--;
+            //                 currentMagnitude = Math.Abs(Math.Sqrt(Math.Pow((head.X - tail.X), 2) + Math.Pow((head.Y - tail.Y), 2)));
+            //                 if(currentMagnitude > 1.42f) {
+            //                     tail.Y--;
+            //                     if(head.X - tail.X > 0) {
+            //                         tail.X++;
+            //                     }
+            //                     else if(head.X - tail.X < 0){
+            //                         tail.X--;
+            //                     }
+            //                     if(!tailPos.Contains(new Vector2(tail.X, tail.Y))) {
+            //                         tailPos.Add(new Vector2(tail.X, tail.Y));
+            //                     }
+            //                 }
+            //                 Console.WriteLine($"H - {head.X}, {head.Y}; T - {tail.X}, {tail.Y}");
+            //             }
+            //             break;
+            //         case "D":
+            //             dist =  head.X + dist;
+            //             while ( head.X < dist) {
+            //                 head.X++;
+            //                 currentMagnitude = Math.Abs(Math.Sqrt(Math.Pow((head.X - tail.X), 2) + Math.Pow((head.Y - tail.Y), 2)));
+            //                 if(currentMagnitude > 1.42f) {
+            //                     tail.X++;
+            //                     if(head.Y - tail.Y > 0) {
+            //                         tail.Y++;
+            //                     }
+            //                     else if(head.Y - tail.Y < 0){
+            //                         tail.Y--;
+            //                     }
+            //                     if(!tailPos.Contains(new Vector2(tail.X, tail.Y))) {
+            //                         tailPos.Add(new Vector2(tail.X, tail.Y));
+            //                     }
+            //                 }
+            //                 Console.WriteLine($"H - {head.X}, {head.Y}; T - {tail.X}, {tail.Y}");
+            //             }
+            //             break;
+            //         case "U":
+            //             dist =  head.X - dist;
+            //             while ( head.X > dist) {
+            //                 head.X--;
+            //                 currentMagnitude = Math.Abs(Math.Sqrt(Math.Pow((head.X - tail.X), 2) + Math.Pow((head.Y - tail.Y), 2)));
+            //                 if(currentMagnitude > 1.42f) {
+            //                     tail.X--;
+            //                     if(head.Y - tail.Y > 0) {
+            //                         tail.Y++;
+            //                     }
+            //                     else if(head.Y - tail.Y < 0){
+            //                         tail.Y--;
+            //                     }
+            //                     if(!tailPos.Contains(new Vector2(tail.X, tail.Y))) {
+            //                         tailPos.Add(new Vector2(tail.X, tail.Y));
+            //                     }
+            //                 }
+            //                 Console.WriteLine($"H - {head.X}, {head.Y}; T - {tail.X}, {tail.Y}");
+            //             }
+            //             break;
+            //     }
             }
 
             Console.WriteLine($"Day 9 OnProcessData method execution took {(DateTime.Now - Now).TotalMilliseconds}ms");
