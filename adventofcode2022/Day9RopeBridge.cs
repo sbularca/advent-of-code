@@ -35,11 +35,11 @@ namespace AdventOfCode2022 {
             Now = DateTime.Now;
 
             //string[] lines = result.Split(new [] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
-            //string[] lines = testLines1;
-            string[] lines = testLines2;
+            string[] lines = testLines1;
+            //string[] lines = testLines2;
             List<Vector2> tailPos = new ();
             Vector2 prevHead = Vector2.Zero;
-            int lenght = 10;
+            int lenght = 2;
             List<Vector2> rope = new List<Vector2>(lenght);
             for(int i = 0; i < lenght; i++) {
                 rope.Add(Vector2.Zero);
@@ -56,19 +56,19 @@ namespace AdventOfCode2022 {
                     _ => throw new ArgumentOutOfRangeException()
                 };
                 Console.WriteLine($"Going {dir} {data[1]}");
-                for(int j = 0; j < rope.Count - 1; j++) {
-                    Vector2 dist = rope[j] + direction * float.Parse(data[1]);
-                    while(rope[j] != dist) {
-                        prevHead = rope[j];
-                        rope[j] += direction;
-                        if(Vector2.Distance(rope[j], rope[j+1]) > Vector2.Distance(Vector2.One, Vector2.Zero)) {
-                            rope[j+1] += (prevHead - rope[j+1]);
-                            if(j+1 == rope.Count -1 && !tailPos.Contains(rope[j+1])) {
-                                tailPos.Add(rope[j+1]);
+                Vector2 dist = rope[0] + direction * float.Parse(data[1]);
+                while(rope[0] != dist) {
+                    rope[0] += direction;
+                    for(int j = 1; j < rope.Count; j++) {
+                        prevHead = rope[j-1];
+                        if(Vector2.Distance(prevHead, rope[j]) > Vector2.Distance(Vector2.One, Vector2.Zero)) {
+                            rope[j] += Vector2.Normalize(prevHead - rope[j]);
+                            if(j == rope.Count-1 && !tailPos.Contains(rope[j])) {
+                                tailPos.Add(rope[j]);
                             }
                         }
-                        Console.WriteLine($"x = {rope[j].X}, y = {rope[j].Y}");
-                        Console.WriteLine($"x = {rope[j+1].X}, y = {rope[j+1].Y}\n");
+                        Console.WriteLine($"x = {rope[j-1].X}, y = {rope[j-1].Y}");
+                        Console.WriteLine($"x = {rope[j].X}, y = {rope[j].Y}\n");
                     }
                 }
 

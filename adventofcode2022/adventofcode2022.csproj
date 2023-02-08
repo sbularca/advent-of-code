@@ -1,10 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="AdventOfCode.cs" />
+    <Content Include="Day9RopeBridge.cs" />
+    <Content Include="Day8TreetopTreeHouse.cs" />
+    <Content Include="Day7NoSpaceLeftOnDevice.cs" />
+    <Content Include="Day6TuningTrouble.cs" />
+    <Content Include="Day5SupplyStacks.cs" />
+    <Content Include="Day4CampCleanup.cs" />
+    <Content Include="Day2RockPaperScissors.cs" />
+    <Content Include="Day3RucksackReorganization.cs" />
+    <Content Include="Day1CalorieCounting.cs" />
+    <Content Include="__DayXTemplate.cs" />
+    <Content Include="IAdventOfCode.cs" />
+  </ItemGroup>
 </Project>
