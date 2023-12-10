@@ -7,7 +7,7 @@ namespace AdventOfCode2022 {
         public string Url => "https://sebastianbularca.com/temp/data/day9Input.txt";
         public DateTime Now { get; private set; }
         public List<string> Results { get; } = new();
-
+        public bool ShouldExecute { get; set; } = false;
         private string[] testLines1 = {
             "R 4",
             "U 4",

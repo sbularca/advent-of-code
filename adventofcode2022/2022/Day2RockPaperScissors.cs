@@ -3,7 +3,7 @@
         public string Url => "https://sebastianbularca.com/temp/data/day2Input.txt";
         public DateTime Now { get; private set; }
         public List<string> Results { get; } = new();
-
+        public bool ShouldExecute { get; set; } = false;
         private readonly Dictionary<string, int> standardRules = new (){
             {"A X", 3},
             {"B Y", 3},

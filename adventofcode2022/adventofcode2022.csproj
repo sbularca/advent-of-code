@@ -19,5 +19,16 @@
     <Content Include="Day1CalorieCounting.cs" />
     <Content Include="__DayXTemplate.cs" />
     <Content Include="IAdventOfCode.cs" />
+    <Content Include="2022\Day9RopeBridge.cs" />
+    <Content Include="adventofcode2022.sln" />
+    <Content Include="2022\Day1CalorieCounting.cs" />
+    <Content Include="2022\Day3RucksackReorganization.cs" />
+    <Content Include="2022\Day2RockPaperScissors.cs" />
+    <Content Include="2022\Day4CampCleanup.cs" />
+    <Content Include="2022\Day5SupplyStacks.cs" />
+    <Content Include="2022\Day6TuningTrouble.cs" />
+    <Content Include="2022\Day7NoSpaceLeftOnDevice.cs" />
+    <Content Include="2022\Day8TreetopTreeHouse.cs" />
+    <Content Include="2023\Day1Trebuchet.cs" />
   </ItemGroup>
 </Project>

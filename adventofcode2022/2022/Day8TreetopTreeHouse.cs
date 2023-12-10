@@ -5,7 +5,7 @@ namespace AdventOfCode2022 {
         public string Url => "https://sebastianbularca.com/temp/data/day8Input.txt";
         public DateTime Now { get; private set; }
         public List<string> Results { get; } = new();
-
+        public bool ShouldExecute { get; set; } = false;
         private List<string> visibleTrees = new();
         private string[] testGroup = new [] { "30373", "25512", "65332", "33549", "35390" };
         private List<int> scenicView = new ();
