@@ -1,0 +1,15 @@
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\adventofcode2024.GeneratedMSBuildEditorConfig.editorconfig
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\adventofcode2024.AssemblyInfoInputs.cache
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\adventofcode2024.AssemblyInfo.cs
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\adventofcode2024.csproj.CoreCompileInputs.cache
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\adventofcode2024.sourcelink.json
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\adventofcode2024.exe
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\adventofcode2024.deps.json
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\adventofcode2024.runtimeconfig.json
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\adventofcode2024.dll
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\adventofcode2024.pdb
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\adventofcode2024.dll
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\refint\adventofcode2024.dll
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\adventofcode2024.pdb
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\adventofcode2024.genruntimeconfig.cache
+D:\repos\advent-of-code\adventofcode2024\obj\Debug\net8.0\ref\adventofcode2024.dll
