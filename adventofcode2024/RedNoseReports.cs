@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
@@ -15,44 +16,28 @@ public class RedNoseReports : IAdventOfCode {
             reports.Add(valueList);
         }
 
-        for(int i = 0; i < reports.Count; i++) {
-            var tempReport = reports[i];
-            int asc = 0;
-            int desc = 0;
-            for(var j = 0; j < tempReport.Count - 1; j++) {
-                if(tempReport[j+1] < tempReport[j]) {
-                    desc++;
-                } else {
-                    asc++;
-                }
-            }
-
-            if(desc >= asc) {
-                reports[i] = InvertList(tempReport);
-            }
-        }
-
         for(var i = 0; i < reports.Count; i++) {
             bool first = true;
             for(var j = 0; j < reports[i].Count - 1; j++) {
-                var diff = reports[i][j+1] - reports[i][j];
+                var diff = IsAscendent(reports[i]) ? reports[i][j+1] - reports[i][j] : reports[i][j] - reports[i][j+1];
                 if(diff > 3 || diff <= 0) {
                     if(first) {
                         first = false;
                         var tempReport = reports[i];
-                        tempReport.RemoveAt(j+1);
+                        tempReport.RemoveAt(j);
                         var result = GetResult(tempReport);
 
                         if(result) {
-                            Console.WriteLine(i);
                             matches++;
+                            Console.WriteLine(i + 1);
+                            break;
                         }
                         break;
                     }
                 }
 
                 if(j == reports[i].Count - 2) {
-                    Console.WriteLine(i);
+                    Console.WriteLine(i + 1);
                     matches++;
                 }
             }
@@ -65,7 +50,7 @@ public class RedNoseReports : IAdventOfCode {
         }
 
         for(var k = 0; k < tempReport.Count - 1; k++) {
-            var diffTemp = tempReport[k+1] - tempReport[k];
+            var diffTemp = IsAscendent(tempReport) ? tempReport[k+1] - tempReport[k] : tempReport[k] - tempReport[k+1];
             if(diffTemp > 3 || diffTemp <= 0) {
                 return false;
             }
@@ -75,6 +60,24 @@ public class RedNoseReports : IAdventOfCode {
             }
         }
         return false;
+    }
+
+    private bool IsAscendent(List<int> report){
+        int asc = 0;
+        int desc = 0;
+        for(var j = 0; j < report.Count - 1; j++) {
+            if(report[j + 1] < report[j]) {
+                desc++;
+            }
+            else {
+                asc++;
+            }
+        }
+
+        if(desc > asc) {
+            return false;
+        }
+        return true;
     }
 
     private List<int> InvertList(List<int> report) {
