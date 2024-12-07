@@ -8,16 +8,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="AdventOfCode.cs" />
-    <Content Include="Day9RopeBridge.cs" />
-    <Content Include="Day8TreetopTreeHouse.cs" />
-    <Content Include="Day7NoSpaceLeftOnDevice.cs" />
-    <Content Include="Day6TuningTrouble.cs" />
-    <Content Include="Day5SupplyStacks.cs" />
-    <Content Include="Day4CampCleanup.cs" />
-    <Content Include="Day2RockPaperScissors.cs" />
-    <Content Include="Day3RucksackReorganization.cs" />
-    <Content Include="Day1CalorieCounting.cs" />
     <Content Include="__DayXTemplate.cs" />
     <Content Include="IAdventOfCode.cs" />
+    <Content Include="2022\Day9RopeBridge.cs" />
+    <Content Include="adventofcode2022.sln" />
+    <Content Include="2022\Day1CalorieCounting.cs" />
+    <Content Include="2022\Day3RucksackReorganization.cs" />
+    <Content Include="2022\Day2RockPaperScissors.cs" />
+    <Content Include="2022\Day4CampCleanup.cs" />
+    <Content Include="2022\Day5SupplyStacks.cs" />
+    <Content Include="2022\Day6TuningTrouble.cs" />
+    <Content Include="2022\Day7NoSpaceLeftOnDevice.cs" />
+    <Content Include="2022\Day8TreetopTreeHouse.cs" />
+    <Content Include="2023\Day1Trebuchet.cs" />
   </ItemGroup>
 </Project>

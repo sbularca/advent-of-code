@@ -3,7 +3,7 @@
         public string Url => "https://sebastianbularca.com/temp/data/day4Input.txt";
         public DateTime Now { get; private set; }
         public List<string> Results { get; } = new();
-
+        public bool ShouldExecute { get; set; } = false;
         public void OnProcessData(string result) {
             Now = DateTime.Now;
             List<string []> sortedPairs = new();

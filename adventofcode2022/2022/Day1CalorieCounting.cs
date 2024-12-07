@@ -3,6 +3,8 @@
         public string Url => "https://sebastianbularca.com/temp/data/day1Input.txt";
         public DateTime Now { get; private set; }
         public List<string> Results { get; } = new();
+        public bool ShouldExecute { get; set; } = false;
+
         public void OnProcessData(string result) {
             Now = DateTime.Now;
             string[] elvesBackpacks = result.Split(new [] {"\n\n"}, StringSplitOptions.None);

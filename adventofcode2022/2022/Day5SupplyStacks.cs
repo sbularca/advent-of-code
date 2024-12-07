@@ -5,7 +5,7 @@ namespace AdventOfCode2022 {
         public string Url =>  "https://sebastianbularca.com/temp/data/day5Input.txt";
         public DateTime Now { get; private set; }
         public List<string> Results { get; } = new();
-
+        public bool ShouldExecute { get; set; } = false;
         public void OnProcessData(string result) {
             Now = DateTime.Now;
             string[] allData = result.Split(new [] {"\n"}, StringSplitOptions.RemoveEmptyEntries);

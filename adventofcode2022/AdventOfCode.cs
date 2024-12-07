@@ -10,12 +10,18 @@
             // Execute tasks in parallel
             for(int i = 0; i < instances.Count; i++) {
                 IAdventOfCode aocInstance = instances[i];
+                if (!instances[i].ShouldExecute) {
+                    continue;
+                }
                 tasks.Add(GetInputDataFromUrlAsync(aocInstance.OnProcessData, aocInstance.Url));
             }
             await Task.WhenAll(tasks);
 
             //print results
             for(int i = 0; i < instances.Count; i++) {
+                if(!instances[i].ShouldExecute) {
+                    continue;
+                }
                 instances[i].PrintResults();
             }
         }
