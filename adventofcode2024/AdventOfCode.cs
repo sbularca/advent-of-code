@@ -34,6 +34,6 @@ public class AdventOfCode {
     }
 
     private static string GetInputData(string fileName) {
-        return File.ReadAllText($"data/{fileName}.dat");
+        return File.ReadAllText($"data/{fileName}.dat").TrimEnd('\r', '\n');
     }
 }

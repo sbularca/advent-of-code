@@ -15,13 +15,9 @@ public class HistorianHysteria : IAdventOfCode {
     public void ExecuteInstance(string dataSource) {
         var lines = dataSource.Split('\n');
         foreach(var line in lines) {
-            try {
             var numbers = line.Split("   ").Select(int.Parse).ToArray();
             leftList.Add(numbers[0]);
             rightList.Add(numbers[1]);
-            } catch(Exception e){
-                Console.WriteLine(e.Message);
-            }
         }
 
         leftList.Sort();
@@ -44,7 +40,11 @@ public class HistorianHysteria : IAdventOfCode {
     }
 
     public void PrintResults() {
+        Console.WriteLine(GetType().Name);
+
         Console.WriteLine($"Total Phase 1 = {resultOne}");
         Console.WriteLine($"Total Phase 2 = {resultTwo}");
+
+        Console.WriteLine("\n");
     }
 }
