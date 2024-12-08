@@ -9,25 +9,29 @@ public class MulItOver : IAdventOfCode {
 
         var dontMatches = dontRegex.Matches(dataSource);
         var doMatches = doRegex.Matches(dataSource);
-        // foreach(Match match in doMatches) {
-        //     Console.WriteLine($"Found do's at index {match.Index}");
-        // }
-        //
-        // foreach(Match match in dontMatches) {
-        //     Console.WriteLine($"Found dont's at index {match.Index}");
-        // }
+        foreach(Match match in doMatches) {
+            Console.WriteLine($"Found do's at index {match.Index}");
+        }
+
+        foreach(Match match in dontMatches) {
+            Console.WriteLine($"Found dont's at index {match.Index}");
+        }
 
         var dontIndex = dontMatches[0].Index;
         var doIndex = doMatches[0].Index;
 
-        var i = 0;
+        var index = 0;
         while(doIndex < dontIndex) {
-            doIndex = doMatches[0].Index;
+            doIndex = doMatches[index].Index;
+            index++;
+            Console.WriteLine($"index: {index}");
         }
+
+        Console.WriteLine($"doIndex: {doIndex}");
 
         var firstSet = CalculateMatches(dataSource[..dontIndex], out MatchCollection newMatches);
 
-        for(int i = 0; i < dontMatches.Count; i++) {
+        for(int i = doIndex; i < dontMatches.Count; i++) {
             int nextDoIndex = 0;
             for(int j = doIndex; j < doMatches.Count; j++) {
                 if(doMatches[j].Index > dontMatches[i].Index) {
