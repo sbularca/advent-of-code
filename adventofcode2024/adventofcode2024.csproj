@@ -11,4 +11,9 @@
     <Content Include="HistorianHysteria.cs" />
     <Content Include="data\HistorianHysteria.dat" />
   </ItemGroup>
+  <ItemGroup> 
+  <Content Include="data\**"> 
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> 
+  </Content> 
+</ItemGroup>
 </Project>

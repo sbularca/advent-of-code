@@ -12,6 +12,7 @@ public class HistorianHysteria : IAdventOfCode {
     private int resultOne = 0;
     private int resultTwo = 0;
 
+    public bool ShouldRun { get; set; }
     public void ExecuteInstance(string dataSource) {
         var lines = dataSource.Split('\n');
         foreach(var line in lines) {

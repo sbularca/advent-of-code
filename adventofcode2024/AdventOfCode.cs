@@ -1,4 +1,5 @@
 ﻿public interface IAdventOfCode {
+    public bool ShouldRun { get; set; }
     void ExecuteInstance(string dataSource);
     void PrintResults();
 }
@@ -13,13 +14,17 @@ public class AdventOfCode {
         for(int i = 0; i < instances.Count; i++) {
             IAdventOfCode aocInstance = instances[i];
             var dataSource = GetInputData(aocInstance.GetType().Name);
-            tasks.Add(Task.Run(() => aocInstance.ExecuteInstance(dataSource)));
+            if(aocInstance.ShouldRun) {
+                tasks.Add(Task.Run(() => aocInstance.ExecuteInstance(dataSource)));
+            }
         }
 
         await Task.WhenAll(tasks);
 
         for(int i = 0; i < instances.Count; i++) {
-            instances[i].PrintResults();
+            if(instances[i].ShouldRun) {
+                instances[i].PrintResults();
+            }
         }
     }
 

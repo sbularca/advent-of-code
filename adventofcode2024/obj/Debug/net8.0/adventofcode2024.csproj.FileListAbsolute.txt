@@ -28,3 +28,6 @@ D:\repos\advent-of-code-2022\adventofcode2024\bin\Debug\net8.0\adventofcode2024.
 D:\repos\advent-of-code-2022\adventofcode2024\bin\Debug\net8.0\adventofcode2024.pdb
 D:\repos\advent-of-code-2022\adventofcode2024\obj\Debug\net8.0\adventofcode2024.genruntimeconfig.cache
 D:\repos\advent-of-code-2022\adventofcode2024\obj\Debug\net8.0\ref\adventofcode2024.dll
+D:\repos\advent-of-code-2022\adventofcode2024\bin\Debug\net8.0\data\HistorianHysteria.dat
+D:\repos\advent-of-code-2022\adventofcode2024\bin\Debug\net8.0\data\MulItOver.dat
+D:\repos\advent-of-code-2022\adventofcode2024\bin\Debug\net8.0\data\RedNoseReports.dat

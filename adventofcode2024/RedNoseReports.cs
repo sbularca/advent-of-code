@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 public class RedNoseReports : IAdventOfCode {
     private List<List<int>> reports = new List<List<int>>();
     private int matches = 0;
 
+    public bool ShouldRun { get; set; }
     public void ExecuteInstance(string dataSource) {
         // Parse input
         List<string> values = dataSource.Split("\n").ToList();
