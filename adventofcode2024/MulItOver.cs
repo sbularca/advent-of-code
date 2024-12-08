@@ -17,42 +17,65 @@ public class MulItOver : IAdventOfCode {
             Console.WriteLine($"Found dont's at index {match.Index}");
         }
 
-        var dontIndex = dontMatches[0].Index;
-        var doIndex = doMatches[0].Index;
+        var dontIndex = dontMatches.Count > 0 ? dontMatches[0].Index : -1;
+        var doIndex = doMatches.Count > 0 ? doMatches[0].Index : -1;
 
-        var index = 0;
-        while(doIndex < dontIndex) {
-            doIndex = doMatches[index].Index;
-            index++;
-            Console.WriteLine($"index: {index}");
+        var set = dontIndex > 0 ? CalculateMatches(dataSource[..dontIndex], out var m) : 0;
+
+        Console.WriteLine($"Set: {set}");
+
+        if(doIndex == -1) {
+            finalResult += set;
+            return;
+        }
+        var lastIndex = -1;
+        if(doIndex > 0 && dontIndex > 0) {
+            lastIndex = doMatches[^1].Index > dontMatches[^1].Index ? doMatches[^1].Index : dontMatches[^1].Index;
+        }else if(doIndex > 0) {
+            lastIndex = doMatches[^1].Index;
+        } else {
+            lastIndex = dontMatches[^1].Index;
         }
 
-        Console.WriteLine($"doIndex: {doIndex}");
+        while(true) {
+            if (doIndex < dontIndex) {
+                doIndex = doMatches.First(x => x.Index > dontIndex).Index;
+            }
 
-        var firstSet = CalculateMatches(dataSource[..dontIndex], out MatchCollection newMatches);
+            if (lastIndex < doIndex ) {
+                doIndex = doMatches.First(x => x.Index > dontIndex).Index;
+            }
 
-        for(int i = doIndex; i < dontMatches.Count; i++) {
-            int nextDoIndex = 0;
-            for(int j = doIndex; j < doMatches.Count; j++) {
-                if(doMatches[j].Index > dontMatches[i].Index) {
-                    break;
+            if (dontIndex < doIndex) {
+                try {
+                    dontIndex = dontMatches.First(x => x.Index > doIndex).Index;
+                }catch {
+                    dontIndex = lastIndex;
                 }
             }
 
-            int nextSet = 0;
-            if(i < dontMatches.Count - 1) {
-                nextSet = CalculateMatches(dataSource[nextDoIndex..dontMatches[i].Index], out MatchCollection nextMatches);
-            }
-            else {
-                nextSet = CalculateMatches(dataSource[nextDoIndex..], out MatchCollection nextMatches);
+            if (lastIndex < dontIndex ) {
+                dontIndex = dontMatches.First(x => x.Index > doIndex).Index;
             }
 
-            finalResult += nextSet;
+            if(dontIndex > doIndex) {
+                set += CalculateMatches(dataSource[doIndex..dontIndex], out var newMatches);
+            }
+
+            if(dontIndex > 0 && doIndex > dontMatches[^1].Index) {
+                set += CalculateMatches(dataSource[doIndex..], out var newMatches);
+                break;
+            }
+            // find next do indexes and index those
+
+            if(doIndex == lastIndex || dontIndex == lastIndex) {
+                break;
+            }
         }
 
-        finalResult += firstSet;
+        finalResult += set;
 
-        CalculateMatches(dataSource, out MatchCollection matches);
+        //CalculateMatches(dataSource, out MatchCollection matches);
     }
     private int CalculateMatches(string dataSource, out MatchCollection matches) {
         var result = 0;
@@ -65,17 +88,6 @@ public class MulItOver : IAdventOfCode {
             result += a * b;
         }
         return result;
-    }
-
-    private void SearchInstancesOfString(string dataSource, string pattern) {
-        int startIndex = 0;
-        List<int> occurrences = new List<int>();
-        while((startIndex = dataSource.IndexOf(pattern, startIndex)) != -1) {
-            occurrences.Add(startIndex);
-            startIndex += pattern.Length;
-        }
-
-        Console.WriteLine($"Found {occurrences.Count} occurrences for -{pattern}");
     }
 
     public void PrintResults() {
