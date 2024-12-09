@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 
 public class MulItOver : IAdventOfCode {
-    public bool ShouldRun { get; set; } = true;
+    public bool ShouldRun { get; set; }
     private int finalResult = 0;
     public void ExecuteInstance(string dataSource) {
         Regex dontRegex = new Regex(@"don't()");

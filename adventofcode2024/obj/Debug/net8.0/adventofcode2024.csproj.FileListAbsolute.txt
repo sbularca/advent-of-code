@@ -31,3 +31,7 @@ D:\repos\advent-of-code-2022\adventofcode2024\obj\Debug\net8.0\ref\adventofcode2
 D:\repos\advent-of-code-2022\adventofcode2024\bin\Debug\net8.0\data\HistorianHysteria.dat
 D:\repos\advent-of-code-2022\adventofcode2024\bin\Debug\net8.0\data\MulItOver.dat
 D:\repos\advent-of-code-2022\adventofcode2024\bin\Debug\net8.0\data\RedNoseReports.dat
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\data\CeresSearch.dat
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\data\HistorianHysteria.dat
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\data\MulItOver.dat
+D:\repos\advent-of-code\adventofcode2024\bin\Debug\net8.0\data\RedNoseReports.dat
