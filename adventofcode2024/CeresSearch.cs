@@ -11,13 +11,45 @@ public class CeresSearch : IAdventOfCode {
     }
 
     private void ExecutePhase2(string dataSource) {
-        Regex masRegex = new(@"M.S");
+        counterPhase2 = 0;
+        List<Regex> regexes = new List<Regex> {
+            new(@"(?=M.S)"),
+            new(@"(?=S.M)"),
+            new(@"(?=S.S)"),
+            new(@"(?=M.M)")
+            };
         List<string> matrixLines = dataSource.Split("\n").ToList();
-
         for(int i = 0; i < matrixLines.Count() - 2; i++) {
-            MatchCollection matches1 = masRegex.Matches(matrixLines[i]);
-            MatchCollection matches2 = masRegex.Matches(matrixLines[i + 2]);
+            foreach(Regex regex in regexes) {
+                MatchCollection matches = regex.Matches(matrixLines[i]);
+                Console.WriteLine(matches.Count);
+                foreach(Match match in matches) {
+                    counterPhase2 += VerifyPattern(matrixLines, i, match);
+                }
+            }
         }
+    }
+
+    private int VerifyPattern(List<string> line, int i, Match match) {
+        Regex reg1 = new(@"M.S.A.M.S");
+        Regex reg2 = new(@"S.M.A.S.M");
+        Regex reg3 = new(@"M.M.A.S.S");
+        Regex reg4 = new(@"S.S.A.M.M");
+
+        string line1 = line[i];
+        string line2 = line[i + 1];
+        string line3 = line[i + 2];
+        string pattern = $"{line1[match.Index]}{line1[match.Index + 1]}{line1[match.Index + 2]}{line2[match.Index]}{line2[match.Index + 1]}{line2[match.Index + 2]}{line3[match.Index]}{line3[match.Index + 1]}{line3[match.Index + 2]}";
+        Console.WriteLine(pattern);
+
+        var match1 = reg1.Matches(pattern);
+        var match2 = reg2.Matches(pattern);
+        var match3 = reg3.Matches(pattern);
+        var match4 = reg4.Matches(pattern);
+
+        Console.WriteLine(pattern);
+
+        return match1.Count + match2.Count + match3.Count + match4.Count;
     }
 
     private void ExecutePhase1(string dataSource) {
