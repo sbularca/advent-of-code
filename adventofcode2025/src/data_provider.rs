@@ -1,13 +1,21 @@
 use std::fs;
 
-pub fn get_data_from_path(path: &str) -> Vec<String> {
+pub fn load_data_from_file(path: &str) -> String {
     let contents = fs::read_to_string(path).expect("Something went wrong reading the file");
-    let result: Vec<String> = contents.lines().map(|s| s.to_string()).collect();
+    contents
+}
+
+pub fn get_data_when_lines(string_data: &str) -> Vec<String> {
+    let result: Vec<String> = string_data.lines().map(|s| s.trim().to_string()).collect();
     result
 }
 
-#[cfg(test)]
-pub fn get_data_from_string(string_data: &str) -> Vec<String> {
-    let result: Vec<String> = string_data.lines().map(|s| s.trim().to_string()).collect();
+pub fn get_data_when_comma_separated(data: &str) -> Vec<String> {
+    let result: Vec<String> = data
+        .split(",")
+        .map(|s| s.trim())
+        .filter(|s| !s.is_empty())
+        .map(String::from)
+        .collect();
     result
 }

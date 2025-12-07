@@ -1,7 +1,7 @@
-#[cfg(test)]
 use crate::data_provider;
 
-pub fn run_part_one(string_data: &Vec<String>) -> i32 {
+pub fn run_part_one(data: &str) -> i32 {
+    let string_data = data_provider::get_data_when_lines(data);
     let mut current_index = 50;
     let mut result = 0;
     for line in string_data {
@@ -28,10 +28,10 @@ pub fn run_part_one(string_data: &Vec<String>) -> i32 {
     result
 }
 
-pub fn run_part_two(string_data: &Vec<String>) -> i32 {
+pub fn run_part_two(data: &str) -> i32 {
     let mut current_index: i32 = 50;
     let mut result: i32 = 0;
-
+    let string_data = data_provider::get_data_when_lines(data);
     for line in string_data {
         if line.is_empty() {
             continue;
@@ -73,16 +73,7 @@ pub fn run_part_two(string_data: &Vec<String>) -> i32 {
 #[ignore]
 fn check_result() {
     let values = "L68\nL30\nR48\nL5\nR60\nL55\nL1\nL99\nR14\nL82";
-    let result = vec![
-        "L68", "L30", "R48", "L5", "R60", "L55", "L1", "L99", "R14", "L82",
-    ];
 
-    let data = data_provider::get_data_from_string(values);
-
-    let expected_data: Vec<String> = result.iter().map(|s| s.to_string()).collect();
-
-    assert_eq!(data, expected_data);
-
-    assert_eq!(run_part_one(&data), 3);
-    assert_eq!(run_part_two(&data), 6);
+    assert_eq!(run_part_one(values), 3);
+    assert_eq!(run_part_two(values), 6);
 }
