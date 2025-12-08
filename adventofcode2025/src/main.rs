@@ -1,8 +1,8 @@
 #![allow(unused)]
 mod data_provider;
 mod gift_shop;
-mod secret_entrance;
 mod lobby;
+mod secret_entrance;
 
 fn main() {
     //day_one();
@@ -28,9 +28,9 @@ fn day_two() {
     gift_shop::run_part_two(&data);
 }
 
-fn day_three(){
+fn day_three() {
     println!("Running Day 3");
-    let s = data_provider::load_data_from_file("day2.txt");
+    let s = data_provider::load_data_from_file("day3.txt");
     let data = s.trim();
     lobby::run_part_one(&data);
     println!("\n");
