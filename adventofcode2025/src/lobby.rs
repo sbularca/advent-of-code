@@ -1,7 +1,9 @@
+use crate::data_provider;
+use std::cmp::Reverse;
 use std::iter::Cycle;
 use std::num::NonZeroUsize;
+use std::ops::{Add, Deref};
 use std::process::id;
-use crate::data_provider;
 
 pub fn run_part_one(data: &str) -> i64 {
     let data_vector = data_provider::get_data_when_lines(data);
@@ -20,13 +22,13 @@ pub fn run_part_one(data: &str) -> i64 {
                     left_digit = format!("{c1}{c}").parse().unwrap();
                 }
             }
-            
-            if idx < data.len() - 1{
+
+            if idx < data.len() - 1 {
                 let right_set: String = data[(idx + 1)..].to_string();
                 let right_char = find_closest_to_9(&right_set);
                 if let Some((idx, c2)) = right_char {
                     right_digit = format!("{c}{c2}").parse().unwrap();
-                }    
+                }
             }
 
             if left_digit > right_digit {
@@ -58,15 +60,17 @@ pub fn run_part_two(data: &str) -> i64 {
 
     for mut data in data_vector {
         let mut group: Vec<(usize, char)> = Vec::with_capacity(12);
+        let substring = data[0..data.len() - 12].to_string();
         let mut start_index = 0;
-        let current = find_closest_to_9(&data);
-        if let Some((idx, c)) = current{
+        let current = find_closest_to_9(&substring);
+
+        if let Some((idx, c)) = current {
             group.push((idx, c));
             start_index = idx;
         }
-        let result = recursive_check(data, start_index);
-        
-        
+
+        sum = recursive_check(data, &mut group);
+
         // for cycle in 0..12{
         //     let mut t_data = &data;
         //     let current = find_closest_to_9(&t_data);
@@ -87,13 +91,39 @@ pub fn run_part_two(data: &str) -> i64 {
         // let number: i64 = s.parse().unwrap();
         // sum += number;
     }
-    
-    println!("Result for lobby part two is {sum}");
+
+    println!("\nResult for lobby part two is {sum}");
     sum
 }
 
-fn recursive_check(data: String, start_index: usize) -> _ {
-    
+fn recursive_check(substring: String, group: &mut Vec<(usize, char)>) -> i64 {
+    let mut sum: i64 = 0;
+    let mut i = 0;
+    let mut index = 0;
+    let mut word = String::new();
+    while i < 12 {
+        i += 1;
+        if (index < substring.len() - 12) {
+            let mut substring = substring[index..substring.len() - 1].to_string();
+            let current = find_closest_to_9(&substring);
+
+            if let Some((idx, c)) = current {
+                group.push((idx, c));
+                index = idx;
+            }
+            continue
+        }
+        for c in substring.chars() {
+            group.push((0, c));
+        }
+        break
+    }
+    for set in group {
+        word.push(set.1);
+        sum += word.parse::<i64>().unwrap();
+    }
+    print!("\n{word}");
+    sum
 }
 
 #[test]
