@@ -16,7 +16,7 @@ pub fn run_part_one(data: &str) -> i64 {
         }
     }
 
-    println!("Result for lobby part one is {sum}");
+    println!("Result for printing department part one is {sum}");
     sum
 }
 
@@ -49,7 +49,7 @@ pub fn run_part_two(data: &str) -> i64 {
         }
     }
 
-    println!("Result for lobby part two is {total_removed}");
+    println!("Result for printing department part two is {total_removed}");
     total_removed
 }
 

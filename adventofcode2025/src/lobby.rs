@@ -1,4 +1,5 @@
 use crate::data_provider;
+use crate::data_provider::get_data_when_lines;
 use std::cmp::Reverse;
 use std::iter::Cycle;
 use std::num::NonZeroUsize;
@@ -11,7 +12,6 @@ pub fn run_part_one(data: &str) -> i64 {
     for data in data_vector {
         let set = find_closest_to_9(&data);
         if let Some((idx, c)) = set {
-            println!("index = {idx}, char = {c}");
             let mut left_digit = -1;
             let mut right_digit = -1;
 
@@ -58,75 +58,41 @@ pub fn run_part_two(data: &str) -> i64 {
     let data_vector = data_provider::get_data_when_lines(data);
     let mut sum = 0;
 
-    for mut data in data_vector {
-        let mut group: Vec<(usize, char)> = Vec::with_capacity(12);
-        let substring = data[0..data.len() - 12].to_string();
-        let mut start_index = 0;
-        let current = find_closest_to_9(&substring);
-
-        if let Some((idx, c)) = current {
-            group.push((idx, c));
-            start_index = idx;
+    for line in data_vector {
+        if let Some(best) = max_subsequence_of_len(&line, 12) {
+            let value: i64 = best.parse().unwrap();
+            sum += value;
         }
-
-        sum = recursive_check(data, &mut group);
-
-        // for cycle in 0..12{
-        //     let mut t_data = &data;
-        //     let current = find_closest_to_9(&t_data);
-        //     if let Some((idx, c)) = current{
-        //         if (&data.len()-idx == 12){
-        //             group.push((idx, c));
-        //             let result: i64 = data[idx..data.len()-1].parse().unwrap();
-        //             sum += result;
-        //             break
-        //         }
-        //     }
-        // }
-        // group.sort_by_key(|(index, _ch)| *index);
-        // let s: String = group
-        //     .iter()
-        //     .map(|&(_idx, c)| c)   // take only the char from each (usize, char)
-        //     .collect();
-        // let number: i64 = s.parse().unwrap();
-        // sum += number;
     }
 
     println!("\nResult for lobby part two is {sum}");
     sum
 }
 
-fn recursive_check(substring: String, group: &mut Vec<(usize, char)>) -> i64 {
-    let mut sum: i64 = 0;
-    let mut i = 0;
-    let mut index = 0;
-    let mut word = String::new();
-    while i < 12 {
-        i += 1;
-        if (index < substring.len() - 12) {
-            let mut substring = substring[index..substring.len() - 1].to_string();
-            let current = find_closest_to_9(&substring);
+fn max_subsequence_of_len(s: &str, k: usize) -> Option<String> {
+    let n = s.len();
+    if n < k {
+        return None;
+    }
 
-            if let Some((idx, c)) = current {
-                group.push((idx, c));
-                index = idx;
-            }
-            continue;
+    let mut to_remove = n - k;
+    let mut res: Vec<char> = Vec::with_capacity(n);
+
+    for ch in s.chars() {
+        while to_remove > 0 && !res.is_empty() && res.last().unwrap() < &ch {
+            res.pop();
+            to_remove -= 1;
         }
-        for c in substring.chars() {
-            group.push((0, c));
-        }
-        break;
+        res.push(ch);
     }
-    for set in group {
-        word.push(set.1);
-        sum += word.parse::<i64>().unwrap();
+
+    if res.len() < k {
+        return None;
     }
-    print!("\n{word}");
-    sum
+    res.truncate(k);
+    Some(res.into_iter().collect())
 }
 
-#[ignore]
 #[test]
 fn lobby_test() {
     let values = "987654321111111\n811111111111119\n234234234234278\n818181911112111";
