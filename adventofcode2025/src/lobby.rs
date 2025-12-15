@@ -93,7 +93,6 @@ fn max_subsequence_of_len(s: &str, k: usize) -> Option<String> {
     Some(res.into_iter().collect())
 }
 
-#[test]
 fn lobby_test() {
     let values = "987654321111111\n811111111111119\n234234234234278\n818181911112111";
     let values = values.trim();
