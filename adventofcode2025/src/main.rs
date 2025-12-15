@@ -2,12 +2,14 @@
 mod data_provider;
 mod gift_shop;
 mod lobby;
+mod printing_department;
 mod secret_entrance;
 
 fn main() {
     //day_one();
     //day_two();
-    day_three();
+    //day_three();
+    day_four();
 }
 
 fn day_one() {
@@ -35,4 +37,13 @@ fn day_three() {
     lobby::run_part_one(&data);
     println!("\n");
     lobby::run_part_two(&data);
+}
+
+fn day_four() {
+    println!("Running Day 4");
+    let s = data_provider::load_data_from_file("day4.txt");
+    let data = s.trim();
+    printing_department::run_part_one(&data);
+    println!("\n");
+    printing_department::run_part_two(&data);
 }

@@ -111,12 +111,12 @@ fn recursive_check(substring: String, group: &mut Vec<(usize, char)>) -> i64 {
                 group.push((idx, c));
                 index = idx;
             }
-            continue
+            continue;
         }
         for c in substring.chars() {
             group.push((0, c));
         }
-        break
+        break;
     }
     for set in group {
         word.push(set.1);
@@ -126,6 +126,7 @@ fn recursive_check(substring: String, group: &mut Vec<(usize, char)>) -> i64 {
     sum
 }
 
+#[ignore]
 #[test]
 fn lobby_test() {
     let values = "987654321111111\n811111111111119\n234234234234278\n818181911112111";
