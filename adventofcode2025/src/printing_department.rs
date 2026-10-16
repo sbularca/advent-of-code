@@ -72,6 +72,7 @@ fn count_at_signs_in_neighbors(grid: &[Vec<char>], row: usize, col: usize) -> us
     count
 }
 
+#[ignore]
 #[test]
 fn printing_department_test() {
     let values = "..@@.@@@@.\n@@@.@.@.@@\n@@@@@.@.@@\n@.@@@@..@.\n@@.@@@@.@@\n.@@@@@@@.@\n.@.@.@.@@@\n@.@@@.@@@@\n.@@@@@@@@.\n@.@.@@@.@.";

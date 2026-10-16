@@ -1,4 +1,5 @@
 #![allow(unused)]
+mod cafeteria;
 mod data_provider;
 mod gift_shop;
 mod lobby;
@@ -9,7 +10,8 @@ fn main() {
     //day_one();
     //day_two();
     //day_three();
-    day_four();
+    //day_four();
+    day_five();
 }
 
 fn day_one() {
@@ -46,4 +48,11 @@ fn day_four() {
     printing_department::run_part_one(&data);
     println!("\n");
     printing_department::run_part_two(&data);
+}
+
+fn day_five() {
+    println!("Running Day 5");
+    let s = data_provider::load_data_from_file("day5.txt");
+    let data = s.trim();
+    cafeteria::run_part_one(&data);
 }
